@@ -68,7 +68,7 @@ final class RecipeDetailIngredientsView: UIView {
         let ingredientsText = "\u{2022} " + ingredients
             .map({ $0.trimmingCharacters(in: .whitespacesAndNewlines) })
             .joined(separator: "\n\u{2022} ")
-        ingredientsTextView.text = ingredientsText
+        ingredientsTextView.text = ingredientsText + ingredientsText
     }
 }
 

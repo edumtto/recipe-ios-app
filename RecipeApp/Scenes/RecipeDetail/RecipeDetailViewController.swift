@@ -1,4 +1,5 @@
 import UIKit
+import SDWebImage
 
 protocol RecipeDetailDisplaying: AnyObject {
     func display(recipe: Recipe)
@@ -21,22 +22,20 @@ final class RecipeDetailViewController:UIViewController {
     
     private lazy var headerView = RecipeDetailHeaderView(frame: .zero)
     
-    private lazy var difficultyLabel: UILabel = {
-       let label = UILabel()
-        label.font = UIFont.preferredFont(forTextStyle: .subheadline)
-        label.adjustsFontForContentSizeCategory = true
-        return label
+    private lazy var imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        return imageView
     }()
+    
+    private lazy var groupedInfoView = RecipeDetailGroupedInfoView()
     
     private lazy var ingredientsView = RecipeDetailIngredientsView()
     
     private lazy var contentView = UIView(frame: .zero)
     
-    private lazy var scrollView: UIScrollView = {
-        let scrollview = UIScrollView()
-        scrollview.showsVerticalScrollIndicator = true
-        return scrollview
-    }()
+    private lazy var scrollView = UIScrollView()
     
     init(interactor: RecipeDetailInteracting) {
         self.interactor = interactor
@@ -59,7 +58,8 @@ final class RecipeDetailViewController:UIViewController {
 
     private func buildViewHierarchy() {
         contentView.addSubview(headerView)
-        contentView.addSubview(difficultyLabel)
+        contentView.addSubview(imageView)
+        contentView.addSubview(groupedInfoView)
         contentView.addSubview(ingredientsView)
         scrollView.addSubview(contentView)
         view.addSubview(scrollView)
@@ -71,13 +71,19 @@ final class RecipeDetailViewController:UIViewController {
             $0.leading.trailing.equalToSuperview()
         }
         
-        difficultyLabel.snp.makeConstraints {
-            $0.top.equalTo(headerView.snp.bottom).offset(24)
+        imageView.snp.makeConstraints {
+            $0.top.equalTo(headerView.snp.bottom).offset(16)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(imageView.snp.width).multipliedBy(2.0 / 3.0)
+        }
+        
+        groupedInfoView.snp.makeConstraints {
+            $0.top.equalTo(imageView.snp.bottom).offset(16)
             $0.leading.trailing.equalToSuperview()
         }
         
         ingredientsView.snp.makeConstraints {
-            $0.top.equalTo(difficultyLabel.snp.bottom).offset(24)
+            $0.top.equalTo(groupedInfoView.snp.bottom).offset(24)
             $0.leading.trailing.equalToSuperview()
         }
         
@@ -104,7 +110,6 @@ final class RecipeDetailViewController:UIViewController {
     
     @objc
     private func editRecipe() {
-        
     }
 }
 
@@ -112,7 +117,8 @@ final class RecipeDetailViewController:UIViewController {
 extension RecipeDetailViewController: RecipeDetailDisplaying {
     func display(recipe: Recipe) {
         headerView.display(recipe: recipe)
-        difficultyLabel.text = "Dificuldade: " + recipe.difficulty.name
+        imageView.sd_setImage(with: URL(string: recipe.imageUrl), completed: nil)
+        groupedInfoView.display(recipe: recipe)
         ingredientsView.display(ingredients: recipe.ingredients)
     }
     
