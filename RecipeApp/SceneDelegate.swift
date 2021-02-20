@@ -21,6 +21,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let viewController = RecipeListFactory.make()
         let navigationController = UINavigationController(rootViewController: viewController)
         window.rootViewController = navigationController
+        
+        window.tintColor = .systemOrange
+        
+        let selectedView = UIView()
+        selectedView.backgroundColor = .systemYellow
+        UITableViewCell.appearance().selectedBackgroundView = selectedView
+
         self.window = window
         window.makeKeyAndVisible()
     }
