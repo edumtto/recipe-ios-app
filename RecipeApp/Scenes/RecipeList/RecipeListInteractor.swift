@@ -19,7 +19,10 @@ final class RecipeListInteractor {
 // MARK: - RecipeListInteracting
 extension RecipeListInteractor: RecipeListInteracting {
     func fetchRecipeList() {
+        presenter.presentLoadingAnimation()
         service.fetchRecipeList { [weak self] result in
+            self?.presenter.hideLoadingAnimation()
+            
             switch result {
             case .success(let recipes):
                 self?.presenter.present(recipes: recipes)

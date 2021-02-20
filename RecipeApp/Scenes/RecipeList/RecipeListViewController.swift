@@ -2,6 +2,8 @@ import UIKit
 import SnapKit
 
 protocol RecipeListDisplaying: AnyObject {
+    func displayLoadingAnimation()
+    func hideLoadingAnimation()
     func display(recipes: [RecipePreview])
     func display(errorTitle: String, message: String)
 }
@@ -25,6 +27,12 @@ final class RecipeListViewController: UIViewController {
         return UIBarButtonItem(systemItem: .add, primaryAction: action, menu: nil)
     }()
     
+    private lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        return refreshControl
+    }()
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .clear
@@ -33,6 +41,7 @@ final class RecipeListViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(RecipeListCell.self, forCellReuseIdentifier: RecipeListCell.reuseIdentifier)
+        tableView.refreshControl = refreshControl
         return tableView
     }()
     
@@ -76,10 +85,16 @@ final class RecipeListViewController: UIViewController {
         
         navigationItem.rightBarButtonItem = addRecipeButton
     }
+    
+    @objc
+    private func refresh() {
+        interactor.fetchRecipeList()
+    }
 }
 
 extension RecipeListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         interactor.openRecipeDescription(id: recipePreviews[indexPath.row].id)
     }
 }
@@ -110,6 +125,17 @@ extension RecipeListViewController: UITableViewDataSource {
 
 // MARK: - RecipeListDisplaying
 extension RecipeListViewController: RecipeListDisplaying {
+    func displayLoadingAnimation() {
+        if refreshControl.isRefreshing {
+            return
+        }
+        refreshControl.beginRefreshing()
+    }
+    
+    func hideLoadingAnimation() {
+        refreshControl.endRefreshing()
+    }
+    
     func display(recipes: [RecipePreview]) {
         recipePreviews = recipes
         tableView.reloadData()

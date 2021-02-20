@@ -2,6 +2,8 @@ import Foundation
 
 protocol RecipeListPresenting: AnyObject {
     var viewController: RecipeListDisplaying? { get set }
+    func presentLoadingAnimation()
+    func hideLoadingAnimation()
     func present(recipes: [RecipePreview])
     func present(error: Error)
     func didNextStep(action: RecipeListAction)
@@ -18,6 +20,14 @@ final class RecipeListPresenter {
 
 // MARK: - RecipeListPresenting
 extension RecipeListPresenter: RecipeListPresenting {
+    func presentLoadingAnimation() {
+        viewController?.displayLoadingAnimation()
+    }
+    
+    func hideLoadingAnimation() {
+        viewController?.hideLoadingAnimation()
+    }
+    
     func present(recipes: [RecipePreview]) {
         viewController?.display(recipes: recipes)
     }
