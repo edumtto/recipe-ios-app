@@ -19,20 +19,23 @@ final class RecipeDetailViewController:UIViewController {
     
     private lazy var editRecipeButton = UIBarButtonItem(title: "Editar", style: .plain, target: self, action: #selector(editRecipe))
     
-    private lazy var titleLabel: UILabel = {
-       let label  = UILabel()
-        label.font = UIFont.preferredFont(forTextStyle: .largeTitle)
+    private lazy var headerView = RecipeDetailHeaderView(frame: .zero)
+    
+    private lazy var difficultyLabel: UILabel = {
+       let label = UILabel()
+        label.font = UIFont.preferredFont(forTextStyle: .subheadline)
         label.adjustsFontForContentSizeCategory = true
-        label.numberOfLines = 0
         return label
     }()
     
-    private lazy var descriptionLabel: UILabel = {
-       let label  = UILabel()
-        label.font = UIFont.preferredFont(forTextStyle: .subheadline)
-        label.adjustsFontForContentSizeCategory = true
-        label.numberOfLines = 0
-        return label
+    private lazy var ingredientsView = RecipeDetailIngredientsView()
+    
+    private lazy var contentView = UIView(frame: .zero)
+    
+    private lazy var scrollView: UIScrollView = {
+        let scrollview = UIScrollView()
+        scrollview.showsVerticalScrollIndicator = true
+        return scrollview
     }()
     
     init(interactor: RecipeDetailInteracting) {
@@ -55,19 +58,38 @@ final class RecipeDetailViewController:UIViewController {
     }
 
     private func buildViewHierarchy() {
-        view.addSubview(titleLabel)
-        view.addSubview(descriptionLabel)
+        contentView.addSubview(headerView)
+        contentView.addSubview(difficultyLabel)
+        contentView.addSubview(ingredientsView)
+        scrollView.addSubview(contentView)
+        view.addSubview(scrollView)
     }
     
     private func setupConstraints() {
-        titleLabel.snp.makeConstraints {
+        headerView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(16)
-            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.leading.trailing.equalToSuperview()
         }
         
-        descriptionLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(24)
-            $0.leading.trailing.equalToSuperview().inset(16)
+        difficultyLabel.snp.makeConstraints {
+            $0.top.equalTo(headerView.snp.bottom).offset(24)
+            $0.leading.trailing.equalToSuperview()
+        }
+        
+        ingredientsView.snp.makeConstraints {
+            $0.top.equalTo(difficultyLabel.snp.bottom).offset(24)
+            $0.leading.trailing.equalToSuperview()
+        }
+        
+        contentView.snp.makeConstraints {
+            $0.top.bottom.equalToSuperview().inset(16)
+            $0.centerX.equalToSuperview()
+            $0.width.equalToSuperview().inset(16)
+        }
+        
+        scrollView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            $0.centerX.width.bottom.equalToSuperview()
         }
     }
 
@@ -89,8 +111,9 @@ final class RecipeDetailViewController:UIViewController {
 // MARK: - RecipeDetailDisplaying
 extension RecipeDetailViewController: RecipeDetailDisplaying {
     func display(recipe: Recipe) {
-        titleLabel.text = recipe.title
-        descriptionLabel.text = recipe.description
+        headerView.display(recipe: recipe)
+        difficultyLabel.text = "Dificuldade: " + recipe.difficulty.name
+        ingredientsView.display(ingredients: recipe.ingredients)
     }
     
     func display(errorTitle: String, message: String) {
