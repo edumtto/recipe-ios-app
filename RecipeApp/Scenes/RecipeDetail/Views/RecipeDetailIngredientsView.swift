@@ -2,13 +2,6 @@ import UIKit
 import SnapKit
 
 final class RecipeDetailIngredientsView: UIView {
-    private lazy var separatorView: UIImageView = {
-        let imageView = UIImageView(image: #imageLiteral(resourceName: "separator0.pdf"))
-        imageView.tintColor = .gray
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
-    
     private lazy var ingredientsLabel: UILabel = {
        let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .title3)
@@ -38,20 +31,13 @@ final class RecipeDetailIngredientsView: UIView {
     }
     
     private func buildViewHierarchy() {
-        addSubview(separatorView)
         addSubview(ingredientsLabel)
         addSubview(ingredientsTextView)
     }
     
     private func setupConstraints() {
-        separatorView.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.leading.trailing.equalToSuperview().inset(56)
-        }
-        
         ingredientsLabel.snp.makeConstraints {
-            $0.top.equalTo(separatorView.snp.bottom).offset(24)
-            $0.leading.trailing.equalToSuperview()
+            $0.top.leading.trailing.equalToSuperview()
         }
         
         ingredientsTextView.snp.makeConstraints {
@@ -68,7 +54,7 @@ final class RecipeDetailIngredientsView: UIView {
         let ingredientsText = "\u{2022} " + ingredients
             .map({ $0.trimmingCharacters(in: .whitespacesAndNewlines) })
             .joined(separator: "\n\u{2022} ")
-        ingredientsTextView.text = ingredientsText + ingredientsText
+        ingredientsTextView.text = ingredientsText
     }
 }
 

@@ -33,7 +33,27 @@ final class RecipeDetailViewController:UIViewController {
     
     private lazy var ingredientsView = RecipeDetailIngredientsView()
     
-    private lazy var contentView = UIView(frame: .zero)
+    private lazy var separatorView: UIImageView = {
+        let imageView = UIImageView(image: #imageLiteral(resourceName: "separator0.pdf"))
+        imageView.tintColor = .gray
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    
+    private lazy var contentStackView: UIStackView = {
+        let stackView = UIStackView(
+            arrangedSubviews: [
+                headerView,
+                imageView,
+                groupedInfoView,
+                separatorView,
+                ingredientsView
+            ]
+        )
+        stackView.axis = .vertical
+        stackView.spacing = 16
+        return stackView
+    }()
     
     private lazy var scrollView = UIScrollView()
     
@@ -57,39 +77,18 @@ final class RecipeDetailViewController:UIViewController {
     }
 
     private func buildViewHierarchy() {
-        contentView.addSubview(headerView)
-        contentView.addSubview(imageView)
-        contentView.addSubview(groupedInfoView)
-        contentView.addSubview(ingredientsView)
-        scrollView.addSubview(contentView)
+        scrollView.addSubview(contentStackView)
         view.addSubview(scrollView)
     }
     
     private func setupConstraints() {
-        headerView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(16)
-            $0.leading.trailing.equalToSuperview()
-        }
-        
         imageView.snp.makeConstraints {
-            $0.top.equalTo(headerView.snp.bottom).offset(16)
-            $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(imageView.snp.width).multipliedBy(2.0 / 3.0)
         }
         
-        groupedInfoView.snp.makeConstraints {
-            $0.top.equalTo(imageView.snp.bottom).offset(16)
-            $0.leading.trailing.equalToSuperview()
-        }
-        
-        ingredientsView.snp.makeConstraints {
-            $0.top.equalTo(groupedInfoView.snp.bottom).offset(24)
-            $0.leading.trailing.equalToSuperview()
-        }
-        
-        contentView.snp.makeConstraints {
-            $0.top.bottom.equalToSuperview().inset(16)
-            $0.centerX.equalToSuperview()
+        contentStackView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(16)
+            $0.centerX.bottom.equalToSuperview()
             $0.width.equalToSuperview().inset(16)
         }
         
@@ -117,7 +116,13 @@ final class RecipeDetailViewController:UIViewController {
 extension RecipeDetailViewController: RecipeDetailDisplaying {
     func display(recipe: Recipe) {
         headerView.display(recipe: recipe)
-        imageView.sd_setImage(with: URL(string: recipe.imageUrl), completed: nil)
+        
+        if recipe.imageUrl.isEmpty {
+            imageView.isHidden = true
+        } else {
+            imageView.sd_setImage(with: URL(string: recipe.imageUrl), completed: nil)
+        }
+        
         groupedInfoView.display(recipe: recipe)
         ingredientsView.display(ingredients: recipe.ingredients)
     }
