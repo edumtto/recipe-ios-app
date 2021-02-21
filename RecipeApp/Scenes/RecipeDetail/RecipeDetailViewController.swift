@@ -87,7 +87,7 @@ final class RecipeDetailViewController:UIViewController {
         }
         
         contentStackView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(16)
+            $0.top.equalToSuperview().offset(16)
             $0.centerX.bottom.equalToSuperview()
             $0.width.equalToSuperview().inset(16)
         }
