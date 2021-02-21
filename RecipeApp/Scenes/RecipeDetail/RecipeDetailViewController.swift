@@ -32,6 +32,7 @@ final class RecipeDetailViewController:UIViewController {
     private lazy var groupedInfoView = RecipeDetailGroupedInfoView()
     
     private lazy var ingredientsView = RecipeDetailIngredientsView()
+    private lazy var stepsView = RecipeDetailStepsView()
     
     private lazy var separatorView: UIImageView = {
         let imageView = UIImageView(image: #imageLiteral(resourceName: "separator0.pdf"))
@@ -47,7 +48,8 @@ final class RecipeDetailViewController:UIViewController {
                 imageView,
                 groupedInfoView,
                 separatorView,
-                ingredientsView
+                ingredientsView,
+                stepsView
             ]
         )
         stackView.axis = .vertical
@@ -100,15 +102,13 @@ final class RecipeDetailViewController:UIViewController {
 
     private func configureViews() {
         view.backgroundColor = .white
-        
-        //navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .never
-        
         navigationItem.rightBarButtonItem = editRecipeButton
     }
     
     @objc
     private func editRecipe() {
+        interactor.editRecipe()
     }
 }
 
@@ -125,6 +125,7 @@ extension RecipeDetailViewController: RecipeDetailDisplaying {
         
         groupedInfoView.display(recipe: recipe)
         ingredientsView.display(ingredients: recipe.ingredients)
+        stepsView.display(steps: recipe.steps)
     }
     
     func display(errorTitle: String, message: String) {

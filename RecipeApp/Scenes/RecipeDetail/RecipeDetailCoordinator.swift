@@ -1,6 +1,7 @@
 import UIKit
 
 enum RecipeDetailAction {
+    case edit(Recipe)
 }
 
 protocol RecipeDetailCoordinating: AnyObject {
@@ -15,5 +16,10 @@ final class RecipeDetailCoordinator {
 // MARK: - RecipeDetailCoordinating
 extension RecipeDetailCoordinator: RecipeDetailCoordinating {
     func perform(action: RecipeDetailAction) {
+        switch action {
+        case .edit(let recipe):
+            let editForm = RecipeFormFactory.make(recipe: recipe)
+            viewController?.navigationController?.pushViewController(editForm, animated: true)
+        }
     }
 }
