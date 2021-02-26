@@ -16,6 +16,7 @@
 		7362700225CCD63900BD211B /* RecipeDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73626FFC25CCD63900BD211B /* RecipeDetailInteractor.swift */; };
 		7362700325CCD63900BD211B /* RecipeDetailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73626FFD25CCD63900BD211B /* RecipeDetailService.swift */; };
 		737545E125CC15D100F7E53B /* RecipeListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737545E025CC15D100F7E53B /* RecipeListCell.swift */; };
+		738CF02225E87C00005428BF /* FormFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738CF02125E87C00005428BF /* FormFieldCell.swift */; };
 		73A5D07A25E2A7E600597D3B /* RecipeDetailStepsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A5D07925E2A7E600597D3B /* RecipeDetailStepsView.swift */; };
 		73AB00E325E1CCD000B627A5 /* RecipeDetailGroupedInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AB00E225E1CCD000B627A5 /* RecipeDetailGroupedInfoView.swift */; };
 		73B0166625E096EC0064011C /* RecipeDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B0166525E096EC0064011C /* RecipeDetailHeaderView.swift */; };
@@ -42,6 +43,8 @@
 		73E6A4C525D2AF02003B9CCF /* RecipeFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E6A4BF25D2AF02003B9CCF /* RecipeFormViewController.swift */; };
 		73E6A4C625D2AF02003B9CCF /* RecipeFormInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E6A4C025D2AF02003B9CCF /* RecipeFormInteractor.swift */; };
 		73E6A4C725D2AF02003B9CCF /* RecipeFormService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E6A4C125D2AF02003B9CCF /* RecipeFormService.swift */; };
+		73F578C925E487FF002E7A54 /* RecipeFormSelectableValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F578C825E487FF002E7A54 /* RecipeFormSelectableValues.swift */; };
+		73F578D125E48AAA002E7A54 /* RecipeFormField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F578D025E48AAA002E7A54 /* RecipeFormField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +75,7 @@
 		73626FFC25CCD63900BD211B /* RecipeDetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailInteractor.swift; sourceTree = "<group>"; };
 		73626FFD25CCD63900BD211B /* RecipeDetailService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailService.swift; sourceTree = "<group>"; };
 		737545E025CC15D100F7E53B /* RecipeListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeListCell.swift; sourceTree = "<group>"; };
+		738CF02125E87C00005428BF /* FormFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormFieldCell.swift; sourceTree = "<group>"; };
 		73A5D07925E2A7E600597D3B /* RecipeDetailStepsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailStepsView.swift; sourceTree = "<group>"; };
 		73AB00E225E1CCD000B627A5 /* RecipeDetailGroupedInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailGroupedInfoView.swift; sourceTree = "<group>"; };
 		73B0166525E096EC0064011C /* RecipeDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailHeaderView.swift; sourceTree = "<group>"; };
@@ -104,6 +108,8 @@
 		73E6A4BF25D2AF02003B9CCF /* RecipeFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeFormViewController.swift; sourceTree = "<group>"; };
 		73E6A4C025D2AF02003B9CCF /* RecipeFormInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeFormInteractor.swift; sourceTree = "<group>"; };
 		73E6A4C125D2AF02003B9CCF /* RecipeFormService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeFormService.swift; sourceTree = "<group>"; };
+		73F578C825E487FF002E7A54 /* RecipeFormSelectableValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeFormSelectableValues.swift; sourceTree = "<group>"; };
+		73F578D025E48AAA002E7A54 /* RecipeFormField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeFormField.swift; sourceTree = "<group>"; };
 		92F07DAA5BDDA7A9E4BF0168 /* Pods-RecipeApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RecipeApp.release.xcconfig"; path = "Target Support Files/Pods-RecipeApp/Pods-RecipeApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -181,6 +187,7 @@
 			children = (
 				73B60C2F25D4BC8A00738F00 /* FormTextField.swift */,
 				73B60C3425D4BED200738F00 /* FormTextView.swift */,
+				738CF02125E87C00005428BF /* FormFieldCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -283,6 +290,7 @@
 		73E6A4B825D2AE79003B9CCF /* RecipeForm */ = {
 			isa = PBXGroup;
 			children = (
+				73F578C725E487F1002E7A54 /* Models */,
 				73B60C2E25D4BC7800738F00 /* Views */,
 				73E6A4BC25D2AF02003B9CCF /* RecipeFormCoordinator.swift */,
 				73E6A4BD25D2AF02003B9CCF /* RecipeFormFactory.swift */,
@@ -292,6 +300,15 @@
 				73E6A4C125D2AF02003B9CCF /* RecipeFormService.swift */,
 			);
 			path = RecipeForm;
+			sourceTree = "<group>";
+		};
+		73F578C725E487F1002E7A54 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				73F578C825E487FF002E7A54 /* RecipeFormSelectableValues.swift */,
+				73F578D025E48AAA002E7A54 /* RecipeFormField.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		9D27F7B88D5D9EA1B6FE8E62 /* Frameworks */ = {
@@ -477,11 +494,13 @@
 			files = (
 				73E6A4C425D2AF02003B9CCF /* RecipeFormPresenter.swift in Sources */,
 				73C8931025C9637D008A32CD /* Api.swift in Sources */,
+				738CF02225E87C00005428BF /* FormFieldCell.swift in Sources */,
 				73C892A125C95D64008A32CD /* RecipeListInteractor.swift in Sources */,
 				73C8929D25C95D64008A32CD /* RecipeListCoordinator.swift in Sources */,
 				73C8929F25C95D64008A32CD /* RecipeListPresenter.swift in Sources */,
 				73A5D07A25E2A7E600597D3B /* RecipeDetailStepsView.swift in Sources */,
 				73C892A025C95D64008A32CD /* RecipeListViewController.swift in Sources */,
+				73F578C925E487FF002E7A54 /* RecipeFormSelectableValues.swift in Sources */,
 				7362700025CCD63900BD211B /* RecipeDetailPresenter.swift in Sources */,
 				7362700325CCD63900BD211B /* RecipeDetailService.swift in Sources */,
 				737545E125CC15D100F7E53B /* RecipeListCell.swift in Sources */,
@@ -497,6 +516,7 @@
 				73C892A225C95D64008A32CD /* RecipeListService.swift in Sources */,
 				73B0167325E0A0B90064011C /* RecipeDetailIngredientsView.swift in Sources */,
 				73E6A4C625D2AF02003B9CCF /* RecipeFormInteractor.swift in Sources */,
+				73F578D125E48AAA002E7A54 /* RecipeFormField.swift in Sources */,
 				73E6A4C325D2AF02003B9CCF /* RecipeFormFactory.swift in Sources */,
 				73E6A4C725D2AF02003B9CCF /* RecipeFormService.swift in Sources */,
 				73B60C3025D4BC8A00738F00 /* FormTextField.swift in Sources */,

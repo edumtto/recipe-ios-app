@@ -2,7 +2,7 @@ import Foundation
 
 protocol RecipeFormPresenting: AnyObject {
     var viewController: RecipeFormDisplaying? { get set }
-    func displaySomething()
+    func presentFormFields(_ fields: [RecipeFormField])
     func didNextStep(action: RecipeFormAction)
 }
 
@@ -17,8 +17,8 @@ final class RecipeFormPresenter {
 
 // MARK: - RecipeFormPresenting
 extension RecipeFormPresenter: RecipeFormPresenting {
-    func displaySomething() {
-        viewController?.displaySomething()
+    func presentFormFields(_ fields: [RecipeFormField]) {
+        viewController?.displayFormFields(fields)
     }
     
     func didNextStep(action: RecipeFormAction) {

@@ -88,6 +88,10 @@ final class RecipeDetailViewController:UIViewController {
             $0.height.equalTo(imageView.snp.width).multipliedBy(2.0 / 3.0)
         }
         
+        separatorView.snp.makeConstraints {
+            $0.height.equalTo(24)
+        }
+        
         contentStackView.snp.makeConstraints {
             $0.top.equalToSuperview().offset(16)
             $0.centerX.bottom.equalToSuperview()
