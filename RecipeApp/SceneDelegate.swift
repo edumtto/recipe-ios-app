@@ -1,10 +1,3 @@
-//
-//  SceneDelegate.swift
-//  RecipeApp
-//
-//  Created by PicPay Eduardo on 02/02/21.
-//
-
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -22,10 +15,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let navigationController = UINavigationController(rootViewController: viewController)
         window.rootViewController = navigationController
         
-        window.tintColor = .systemOrange
+        window.tintColor = .systemOrange//#colorLiteral(red: 0.8159666061, green: 0.2371580906, blue: 0, alpha: 1)
         
         let selectedView = UIView()
-        selectedView.backgroundColor = .systemYellow
+        selectedView.backgroundColor = .systemYellow //#colorLiteral(red: 0.8159666061, green: 0.2371580906, blue: 0, alpha: 1)
         UITableViewCell.appearance().selectedBackgroundView = selectedView
 
         self.window = window
