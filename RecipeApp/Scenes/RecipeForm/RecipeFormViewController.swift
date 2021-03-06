@@ -16,13 +16,13 @@ final class RecipeFormViewController: UIViewController {
     
     private let interactor: RecipeFormInteracting
     
-    private let cellReuseIdentifier = "formFieldCell"
+    private let cellReuseIdentifier = String(describing: RecipeFormFieldCell.self)
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(FormFieldCell.self, forCellReuseIdentifier: cellReuseIdentifier)
+        tableView.register(RecipeFormFieldCell.self, forCellReuseIdentifier: cellReuseIdentifier)
         return tableView
     }()
     
@@ -45,20 +45,20 @@ final class RecipeFormViewController: UIViewController {
         setupConstraints()
         configureViews()
         
-        interactor.populateView()
+        interactor.fetchFormSelectableValues()
     }
 
-    func buildViewHierarchy() {
+    private func buildViewHierarchy() {
         view.addSubview(tableView)
     }
     
-    func setupConstraints() {
+    private func setupConstraints() {
         tableView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
     }
 
-    func configureViews() {
+    private func configureViews() {
         view.backgroundColor = .white
         navigationItem.largeTitleDisplayMode = .never
         title = "Nova receita"
@@ -66,7 +66,17 @@ final class RecipeFormViewController: UIViewController {
 }
 
 extension RecipeFormViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.cellForRow(at: indexPath)?.setSelected(false, animated: false)
+        
+        guard
+            let cell = tableView.cellForRow(at: indexPath) as? RecipeFormCell,
+            let formField = cell.formField
+        else {
+            return
+        }
+        interactor.editField(formField)
+    }
 }
 
 extension RecipeFormViewController: UITableViewDataSource {
@@ -75,14 +85,37 @@ extension RecipeFormViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier) else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier) as? RecipeFormFieldCell else {
             return UITableViewCell(style: .value1, reuseIdentifier: nil)
         }
-        cell.textLabel?.text = recipeFormFields[indexPath.row].type.rawValue
-        cell.detailTextLabel?.text = recipeFormFields[indexPath.row].value
+        cell.formField = recipeFormFields[indexPath.row]
         return cell
     }
 }
+/*
+extension RecipeFormViewController: RecipeFormCellDelegate {
+    func didChangeValue(newValue: String?, fieldType: RecipeFormFieldType) {
+        interactor.didEditField(newValue: newValue, type: fieldType)
+    }
+    
+    func displaySelectableOptions(fieldType: RecipeFormFieldType, options: [RecipeSelectableValue]) {
+        let actionSheet = UIAlertController(title: fieldType.rawValue, message: nil, preferredStyle: .actionSheet)
+        
+        options.forEach { option in
+            let alertAction = UIAlertAction(title: option.name, style: .default) { [weak self] action in
+                self?.didChangeValue(fieldType: fieldType, newValue: option.name)
+            }
+            actionSheet.addAction(alertAction)
+        }
+        
+        let alertDismissAction = UIAlertAction(title: "Cancelar", style: .cancel) { action in
+            actionSheet.dismiss(animated: true)
+        }
+        actionSheet.addAction(alertDismissAction)
+        
+        present(actionSheet, animated: true)
+    }
+}*/
 
 // MARK: - RecipeFormDisplaying
 extension RecipeFormViewController: RecipeFormDisplaying {

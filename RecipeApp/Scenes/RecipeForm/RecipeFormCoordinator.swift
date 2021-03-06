@@ -1,6 +1,7 @@
 import UIKit
 
 enum RecipeFormAction {
+    case editField(formField: RecipeFormField, didEditDelegate: FormFieldEditingDelegate)
 }
 
 protocol RecipeFormCoordinating: AnyObject {
@@ -15,5 +16,10 @@ final class RecipeFormCoordinator {
 // MARK: - RecipeFormCoordinating
 extension RecipeFormCoordinator: RecipeFormCoordinating {
     func perform(action: RecipeFormAction) {
+        switch action {
+        case let .editField(formField, didEditDelegate):
+            let editingController = FormTextFieldEditingFactory.make(formField: formField, didEditDelegate: didEditDelegate)
+            viewController?.navigationController?.pushViewController(editingController, animated: true)
+        }
     }
 }

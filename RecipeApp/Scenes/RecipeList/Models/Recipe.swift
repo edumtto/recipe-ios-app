@@ -11,8 +11,8 @@ struct Recipe: Decodable {
     let title: String
     let description: String
     let author: RecipeAuthor
-    let category: RecipeCategory
-    let difficulty: RecipeDifficulty
+    let category: RecipeSelectableValue
+    let difficulty: RecipeSelectableValue
     let rating: Int
     let preparationTime: Int
     let serving: Int
@@ -28,12 +28,7 @@ struct RecipeAuthor: Decodable {
     let name: String
 }
 
-struct RecipeCategory: Decodable {
-    let id: Int
-    let name: String
-}
-
-struct RecipeDifficulty: Decodable {
+struct RecipeSelectableValue: Decodable {
     let id: Int
     let name: String
 }
