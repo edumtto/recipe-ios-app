@@ -17,14 +17,19 @@ final class FormTextFieldEditingViewController: UIViewController {
 
     private let interactor: FormTextFieldEditingInteracting
     
-    private lazy var textField: UITextField = {
-        let view = UITextField()
-        view.backgroundColor = .white
-        //view.keyboardType = .asciiCapable
-        return view
+    private let cellReuseIdentifier = String(describing: FormTextFieldEditingCell.self)
+    
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .grouped)
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(FormTextFieldEditingCell.self, forCellReuseIdentifier: cellReuseIdentifier)
+        return tableView
     }()
     
     private lazy var okButton = UIBarButtonItem(title: "OK", style: .done, target: self, action: #selector(didTapOkButton))
+    
+    private var fieldViewModel: FormTextFieldEditingViewModel?
     
     init(interactor: FormTextFieldEditingInteracting) {
         self.interactor = interactor
@@ -47,14 +52,12 @@ final class FormTextFieldEditingViewController: UIViewController {
     }
 
     private func buildViewHierarchy() {
-        view.addSubview(textField)
+        view.addSubview(tableView)
     }
     
     private func setupConstraints() {
-        textField.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(16)
-            $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(40)
+        tableView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
         }
     }
 
@@ -65,15 +68,42 @@ final class FormTextFieldEditingViewController: UIViewController {
     
     @objc
     private func didTapOkButton() {
-        interactor.didConfirm(value: textField.text)
+        interactor.didConfirm(value: fieldViewModel?.fieldValue)
     }
+}
+
+extension FormTextFieldEditingViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.cellForRow(at: indexPath)?.setSelected(false, animated: false)
+    }
+}
+
+extension FormTextFieldEditingViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier) as? FormTextFieldEditingCell else {
+            return UITableViewCell(style: .value1, reuseIdentifier: nil)
+        }
+        cell.viewModel = fieldViewModel
+        cell.didChangeValue = { [weak self] newValue in
+            self?.fieldViewModel?.fieldValue = newValue
+        }
+        cell.openKeyboard()
+        return cell
+    }
+    
+    
 }
 
 // MARK: - FormTextFieldEditingDisplaying
 extension FormTextFieldEditingViewController: FormTextFieldEditingDisplaying {
     func displayEditingField(viewModel: FormTextFieldEditingViewModel) {
         title = viewModel.navigationTitle
-        textField.text = viewModel.fieldValue
-        textField.keyboardType = viewModel.keyboardType
+        fieldViewModel = viewModel
+        tableView.reloadData()
+//        textField.keyboardType = viewModel.keyboardType
     }
 }

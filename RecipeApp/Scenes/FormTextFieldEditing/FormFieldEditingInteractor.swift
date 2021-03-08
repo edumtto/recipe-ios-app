@@ -20,14 +20,7 @@ final class FormTextFieldEditingInteractor {
 // MARK: - FormTextFieldEditingInteracting
 extension FormTextFieldEditingInteractor: FormTextFieldEditingInteracting {
     func configureView() {
-        switch formField.type {
-        case .shortText:
-            presenter.presentShortTextField(formField)
-        case .longText:
-            presenter.presentLongTextField(formField)
-        default:
-            break
-        }
+        presenter.presentTextField(formField)
     }
     
     func didConfirm(value: String?) {

@@ -2,8 +2,7 @@ import Foundation
 
 protocol FormTextFieldEditingPresenting: AnyObject {
     var viewController: FormTextFieldEditingDisplaying? { get set }
-    func presentShortTextField(_ formField: RecipeFormField)
-    func presentLongTextField(_ formField: RecipeFormField)
+    func presentTextField(_ formField: RecipeFormField)
     func didNextStep(action: FormTextFieldEditingAction)
 }
 
@@ -18,7 +17,7 @@ final class FormTextFieldEditingPresenter {
 
 // MARK: - FormTextFieldEditingPresenting
 extension FormTextFieldEditingPresenter: FormTextFieldEditingPresenting {
-    func presentShortTextField(_ formField: RecipeFormField) {
+    func presentTextField(_ formField: RecipeFormField) {
         switch formField {
         case .title(let title):
             let viewModel = FormTextFieldEditingViewModel(
@@ -41,9 +40,6 @@ extension FormTextFieldEditingPresenter: FormTextFieldEditingPresenting {
         default:
             break
         }
-    }
-    
-    func presentLongTextField(_ formField: RecipeFormField) {
     }
     
     func didNextStep(action: FormTextFieldEditingAction) {

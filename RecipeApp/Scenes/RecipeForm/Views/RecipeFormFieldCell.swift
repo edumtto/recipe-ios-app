@@ -6,6 +6,7 @@ final class RecipeFormFieldCell: UITableViewCell, RecipeFormCell {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .callout)
         label.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        label.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         return label
     }()
     
