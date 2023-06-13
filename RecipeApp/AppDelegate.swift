@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  RecipeApp
-//
-//  Created by PicPay Eduardo on 02/02/21.
-//
-
 import UIKit
 
 @main

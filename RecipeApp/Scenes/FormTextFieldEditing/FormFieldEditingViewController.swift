@@ -5,13 +5,6 @@ protocol FormTextFieldEditingDisplaying: AnyObject {
     func displayEditingField(viewModel: FormTextFieldEditingViewModel)
 }
 
-private extension FormTextFieldEditingViewController.Layout {
-    //example
-    enum Size {
-        static let imageHeight: CGFloat = 90.0
-    }
-}
-
 final class FormTextFieldEditingViewController: UIViewController {
     fileprivate enum Layout { }
 

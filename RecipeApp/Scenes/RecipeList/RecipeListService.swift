@@ -18,7 +18,14 @@ extension RecipeListService: RecipeListServicing {
         
         api.execute { result in
             DispatchQueue.main.async {
-                completion(result)
+                //completion(result)
+                
+                let mockedResult: [RecipePreview] = [
+                    .init(id: 0, title: "Brigadeiro", description: "O brigadeiro é um doce genuinamente brasileiro. Um orgulho só! Essa delícia de chocolate faz a alegria da criançada e de muita gente grande em qualquer circunstância."),
+                    .init(id: 1, title: "Bolo comum", description: "Receita de bolo padrão. Prática e fácil de fazer"),
+                    .init(id: 2, title: "Pudim de doce de leite", description: "Delicioso pudin com receita tradicional")
+                ]
+                completion(.success(mockedResult))
             }
         }
     }

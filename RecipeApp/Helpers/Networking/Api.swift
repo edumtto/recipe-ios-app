@@ -28,7 +28,6 @@ final class Api<T: Decodable> {
         }
         var request = URLRequest(url: url)
         request.httpMethod = endpoint.method.rawValue
-//        request.httpBody =
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
@@ -50,9 +49,5 @@ final class Api<T: Decodable> {
         }
 
         task.resume()
-    }
-    
-    deinit {
-        print("deinit")
     }
 }

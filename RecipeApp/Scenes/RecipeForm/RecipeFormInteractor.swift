@@ -62,7 +62,6 @@ extension RecipeFormInteractor: RecipeFormInteracting {
             .steps(recipe.steps),
             .image(recipe.imageUrl)
         ]
-        print("editing recipe")
         presenter.presentFormFields(formFields)
     }
 

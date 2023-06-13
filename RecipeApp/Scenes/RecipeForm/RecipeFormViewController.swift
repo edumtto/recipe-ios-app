@@ -4,13 +4,6 @@ protocol RecipeFormDisplaying: AnyObject {
     func displayFormFields(_ formFields: [RecipeFormField])
 }
 
-private extension RecipeFormViewController.Layout {
-    //example
-    enum Size {
-        static let imageHeight: CGFloat = 90.0
-    }
-}
-
 final class RecipeFormViewController: UIViewController {
     fileprivate enum Layout { }
     
@@ -92,30 +85,6 @@ extension RecipeFormViewController: UITableViewDataSource {
         return cell
     }
 }
-/*
-extension RecipeFormViewController: RecipeFormCellDelegate {
-    func didChangeValue(newValue: String?, fieldType: RecipeFormFieldType) {
-        interactor.didEditField(newValue: newValue, type: fieldType)
-    }
-    
-    func displaySelectableOptions(fieldType: RecipeFormFieldType, options: [RecipeSelectableValue]) {
-        let actionSheet = UIAlertController(title: fieldType.rawValue, message: nil, preferredStyle: .actionSheet)
-        
-        options.forEach { option in
-            let alertAction = UIAlertAction(title: option.name, style: .default) { [weak self] action in
-                self?.didChangeValue(fieldType: fieldType, newValue: option.name)
-            }
-            actionSheet.addAction(alertAction)
-        }
-        
-        let alertDismissAction = UIAlertAction(title: "Cancelar", style: .cancel) { action in
-            actionSheet.dismiss(animated: true)
-        }
-        actionSheet.addAction(alertDismissAction)
-        
-        present(actionSheet, animated: true)
-    }
-}*/
 
 // MARK: - RecipeFormDisplaying
 extension RecipeFormViewController: RecipeFormDisplaying {

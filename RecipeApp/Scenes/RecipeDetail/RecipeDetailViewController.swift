@@ -6,13 +6,6 @@ protocol RecipeDetailDisplaying: AnyObject {
     func display(errorTitle: String, message: String)
 }
 
-private extension RecipeDetailViewController.Layout {
-    //example
-    enum Size {
-        static let imageHeight: CGFloat = 90.0
-    }
-}
-
 final class RecipeDetailViewController:UIViewController {
     fileprivate enum Layout { }
     

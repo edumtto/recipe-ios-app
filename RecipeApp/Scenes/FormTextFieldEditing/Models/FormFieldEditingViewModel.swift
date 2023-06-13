@@ -8,7 +8,6 @@ struct FormTextFieldEditingViewModel {
     }
     let navigationTitle: String
     let fieldDisplayType: FieldDisplayType
-    //let fieldType: RecipeFormFieldType
     var fieldValue: String?
     let keyboardType: UIKeyboardType
 }
