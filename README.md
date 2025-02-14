@@ -1,2 +1,2 @@
 # recipe-ios-app
-A test app integrated with the recipe api.
+A prototype app integrated with the [recipe api](github.com/edumtto/recipe-golang-webservice).
